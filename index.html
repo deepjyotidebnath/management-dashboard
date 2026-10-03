@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Desk – Order Management Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="login" class="login">
+  <form id="lf" class="card">
+    <h1>Order Desk</h1>
+    <label>User<select id="lu"></select></label>
+    <label>PIN<input id="lp" type="password" inputmode="numeric" autocomplete="off"></label>
+    <button class="btn" type="submit">Sign in</button>
+    <p id="le" class="err" role="alert"></p>
+    <p class="hint">Demo PINs: Asha 1111 (admin), Dev 2222 (manager), Mira 3333 (staff)</p>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <h1>Order Desk</h1>
+    <nav id="tabs">
+      <button data-t="orders" aria-pressed="true">Orders</button>
+      <button data-t="customers" aria-pressed="false">Customers</button>
+      <button data-t="notes" aria-pressed="false">Notifications</button>
+      <button data-t="team" aria-pressed="false" id="teamTab">Team</button>
+    </nav>
+    <div class="me"><span id="who"></span><button class="btn ghost" id="out">Sign out</button></div>
+  </header>
+
+  <main>
+    <section id="orders">
+      <div class="stats" id="stats"></div>
+      <div class="bar">
+        <input id="q" type="search" placeholder="Search order, customer, phone, item" aria-label="Search orders">
+        <select id="fs" aria-label="Filter by status"></select>
+        <button class="btn" id="add">+ New order</button>
+        <button class="btn ghost" id="exp">Export CSV (Excel)</button>
+      </div>
+      <div class="scroll"><table id="ot"></table></div>
+    </section>
+
+    <section id="customers" hidden>
+      <div class="stats" id="cstats"></div>
+      <div class="scroll"><table id="ct"></table></div>
+    </section>
+
+    <section id="notes" hidden>
+      <label class="chk"><input type="checkbox" id="auto"> Create a customer message on every status change</label>
+      <p class="hint">Messages open in WhatsApp pre-filled. Fully automatic sending needs a server and the WhatsApp Business API.</p>
+      <div id="nl"></div>
+    </section>
+
+    <section id="team" hidden>
+      <div class="scroll"><table id="tt"></table></div>
+      <form id="tf" class="bar">
+        <input id="tn" placeholder="Name" required aria-label="Name">
+        <input id="tp" placeholder="4-digit PIN" pattern="\d{4}" required aria-label="PIN">
+        <select id="tr" aria-label="Role"><option>staff</option><option>manager</option><option>admin</option></select>
+        <button class="btn">Add user</button>
+      </form>
+      <p class="hint">Admin: everything. Manager: add and edit orders, cancel, export. Staff: view and move orders forward.</p>
+    </section>
+  </main>
+</div>
+
+<dialog id="od">
+  <form id="of" class="card">
+    <h2>New order</h2>
+    <label>Customer name<input id="on" required></label>
+    <label>Phone<input id="op" type="tel" inputmode="tel" placeholder="98765 43210" required></label>
+    <label>Items<input id="oi" required></label>
+    <label>Amount (₹)<input id="oa" type="number" min="1" required></label>
+    <div class="row"><button class="btn" type="submit">Save order</button><button class="btn ghost" type="button" id="oc">Cancel</button></div>
+  </form>
+</dialog>
+
+<dialog id="cd"><div class="card"><div id="cdc"></div><button class="btn ghost" id="cx">Close</button></div></dialog>
+
+<script src="script.js"></script>
+</body>
+</html>
